@@ -13,6 +13,9 @@ response = requests.get('http://localhost:5555/'+ api_command +'/' + api_input)
 
 
 jsonResponse = response.json()
-#Store gameID
-# Call nextmove
-print(jsonResponse['ID'])
+gameID = jsonResponse['ID']
+
+nextMoveResponse = requests.get('http://localhost:5555/'+ 'nextmove' +'/' + str(gameID) + '/1/' + '------------')
+
+nextMoveJsonResponse = nextMoveResponse.json()
+print(nextMoveJsonResponse)
