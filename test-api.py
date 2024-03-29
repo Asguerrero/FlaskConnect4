@@ -3,15 +3,16 @@
 import requests
 
 #Change to the command that you want to test
-api_command = 'do-stuff'
+api_command = 'newgame'
 
 #Change to the input you want to test
-api_input = 'banana'
+api_input = 'X'
 
 #Make sure to use the same port that you used in your flask API
 response = requests.get('http://localhost:5555/'+ api_command +'/' + api_input)
 
-jsonResponse = response.json()
-print(jsonResponse)
 
-print(jsonResponse['stuff'])
+jsonResponse = response.json()
+#Store gameID
+# Call nextmove
+print(jsonResponse['ID'])
