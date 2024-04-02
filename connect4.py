@@ -71,7 +71,8 @@ def nextmove(gameID, oppCol, state):
     #Update global variable allBoards
     allBoards[gameID][0] = ''.join(currBoard)
     allBoards[gameID][1] = nextPlayer
-    response = { 'ID': gameID, 'col': nextMove, 'state' : allBoards[gameID]}
+    state = allBoards[gameID][0] + "#" + nextPlayer
+    response = { 'ID': gameID, 'col': nextMove, 'state' : state}
 
     return json.dumps(response)
 
