@@ -101,6 +101,6 @@ def nextmove(gameID, oppCol, state):
     return json.dumps(out_json)
 
 if __name__ == '__main__':
-    host = 'localhost'
-    port = 5555
+    host = '0.0.0.0'
+    port = 5000
     app.run(host=host, port=port, debug=True)
