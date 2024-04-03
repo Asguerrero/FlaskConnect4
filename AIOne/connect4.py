@@ -58,7 +58,7 @@ def nextmove(gameID, oppCol, state):
     if gameID not in allBoards:
         response = {"Error": "gameID not Found"}
         return json.dumps(response)
-
+    
     updatedBoard = addLastMove(oppCol, gameID, board)
 
     if updatedBoard == False:

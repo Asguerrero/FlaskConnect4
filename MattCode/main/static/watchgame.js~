@@ -1,0 +1,22 @@
+function fetchState() {
+    number = document.getElementById("game_num").innerHTML;
+    URL = "/gamestate/" + number;
+    fetch(URL).then( response => response.json()).then( the_json => updateState(the_json) );
+
+}
+
+function updateState(the_json) {
+    new_state = the_json['state'];
+  
+    the_gameboard = document.getElementById("gameboard");
+    the_gameboard.innerHTML = new_state;
+}
+
+function initializeState(){
+    //fetchState();
+
+    //Update the board state every 2 seconds (2000 milliseconds)
+    setInterval(fetchState, 2000)
+}
+
+    
