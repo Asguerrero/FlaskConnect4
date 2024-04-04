@@ -70,8 +70,12 @@ def nextmove(gameID, oppCol, state):
 
     #Update global variable allBoards
     allBoards[gameID][0] = ''.join(currBoard)
+
+    boardRows = [(allBoards[gameID][0][i:i+7]) for i in range(0, len(allBoards[gameID][0]), 7)]
+    boardRows.reverse()
+    boardRows = ''.join(boardRows)
     allBoards[gameID][1] = nextPlayer
-    state = allBoards[gameID][0] + "#" + nextPlayer
+    state = boardRows + "#" + nextPlayer
     response = { 'ID': gameID, 'col': nextMove, 'state' : state}
 
     return json.dumps(response)
