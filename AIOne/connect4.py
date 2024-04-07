@@ -12,11 +12,19 @@ allBoards = {}
 
 #Update the board in allBoards with the last move from the opponent. Return false if not possible (index out of range)
 def addLastMove(opponentMove, gameID, board):
-    currPlayer = allBoards[gameID][1]
+    if opponentMove == 0:
+        return board
+
+    player = allBoards[gameID][1]
+    if player == "X":
+        opponent = "O"
+    else:
+        opponent = "X"
+
     targetIndex = opponentMove - 1
     while targetIndex < 42:
         if board[targetIndex] == "-":
-            board[targetIndex] = currPlayer
+            board[targetIndex] = opponent
             return board
         else:
             targetIndex += 7
@@ -24,15 +32,12 @@ def addLastMove(opponentMove, gameID, board):
     
 #AI moves their piece to the next available spot, iterating through the board from left to right
 def makeNextMove(gameID, board):
-    previousPlayer =  allBoards[gameID][1]
-    if previousPlayer == "X":
-        currPlayer = "O"
-    else:
-        currPlayer = "X"
+    player =  allBoards[gameID][1]
+   
     index = 0
     while index < 42:
         if board[index] == "-":
-            board[index] = currPlayer
+            board[index] = player
             if (index + 1) % 7 == 0:
                 return 7, board
             else:
@@ -66,16 +71,23 @@ def nextmove(gameID, oppCol, state):
         return json.dumps(response)
 
     nextMove, currBoard = makeNextMove(gameID, updatedBoard)
-    nextPlayer = allBoards[gameID][1]
 
     #Update global variable allBoards
-    allBoards[gameID][0] = ''.join(currBoard)
+    allBoards[gameID][0] = ''.join(currBoard) #store as a string
 
+    # Convert board into string  Split into six rows and join them as a string
     boardRows = [(allBoards[gameID][0][i:i+7]) for i in range(0, len(allBoards[gameID][0]), 7)]
     boardRows.reverse()
     boardRows = ''.join(boardRows)
-    allBoards[gameID][1] = nextPlayer
-    state = boardRows + "#" + nextPlayer
+
+    
+    player = allBoards[gameID][1]
+    if player == "X":
+        opponent = "O"
+    else:
+        opponent = "X"
+
+    state = opponent + "#" + boardRows
     response = { 'ID': gameID, 'col': nextMove, 'state' : state}
 
     return json.dumps(response)

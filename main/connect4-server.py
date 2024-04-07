@@ -121,8 +121,10 @@ def play_game(num):
     ids = {}
     ai_answer = requests.get(ai_urls['X'] + '/newgame/X').json()
     ids['X'] = str(ai_answer['ID'])
+   
     ai_answer = requests.get(ai_urls['O'] + '/newgame/O').json()
     ids['O'] = str(ai_answer['ID'])
+    print()
     
     cur_state = blank_state()
     state_lock.acquire()
@@ -145,6 +147,7 @@ def play_game(num):
         #sys.stderr.write(query_url)
         
         ai_answer = requests.get(query_url).json()
+        print("Query: ",query_url, ai_answer)
         cur_state = ai_answer['state']
         col = str( ai_answer['col'] )
 
